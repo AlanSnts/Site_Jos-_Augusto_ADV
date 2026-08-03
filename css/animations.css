@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Animations — José Augusto Ferreira Advocacia
+   ========================================================================== */
+
+[data-reveal] {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-premium), transform 0.9s var(--ease-premium);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: transform, opacity;
+}
+
+[data-reveal="fade-up"] {
+  transform: translateY(36px);
+}
+
+[data-reveal="fade-left"] {
+  transform: translateX(-46px);
+}
+
+[data-reveal="fade-right"] {
+  transform: translateX(46px);
+}
+
+[data-reveal="scale"] {
+  transform: scale(0.94);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hero entrance (plays on load, not on scroll) */
+.hero-load-in {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: hero-fade-up 1s var(--ease-premium) forwards;
+  animation-delay: var(--load-delay, 0s);
+}
+
+@keyframes hero-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Counter parent guard — number swapped via JS, no CSS anim needed beyond reveal */
+
+/* Modal open body lock */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Mobile nav drawer */
+@media (max-width: 900px) {
+  .nav-links {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(340px, 82vw);
+    height: 100vh;
+    background: var(--color-surface);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.8rem;
+    padding: 2rem 2.6rem;
+    box-shadow: -20px 0 60px rgba(32, 36, 63, 0.15);
+    transform: translateX(100%);
+    transition: transform var(--duration-medium) var(--ease-premium);
+    z-index: 550;
+  }
+
+  .nav-links.is-open {
+    transform: translateX(0);
+  }
+
+  .nav-links a {
+    color: var(--color-text);
+    font-size: 1.05rem;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-gold-dark);
+  }
+
+  .nav-cta.is-mobile {
+    display: inline-flex;
+    margin-top: 0.6rem;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 19, 34, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--duration-medium) var(--ease-premium), visibility var(--duration-medium);
+    z-index: 540;
+  }
+
+  .nav-scrim.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 901px) {
+  .nav-cta.is-desktop {
+    display: inline-flex;
+  }
+}
